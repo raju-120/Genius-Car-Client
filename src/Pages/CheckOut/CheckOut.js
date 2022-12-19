@@ -42,7 +42,7 @@ const CheckOut = () => {
             console.log(data)
             if(data.acknowledge){
                 window.form.reset();
-                window.alert('Order Place Successfully');
+                window.alert('Place your order successfully');
             }
         })
         .catch(er => console.error(er));
