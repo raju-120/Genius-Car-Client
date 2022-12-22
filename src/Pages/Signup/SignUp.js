@@ -2,15 +2,17 @@ import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/images/login/login.svg';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
+import { setAuthToken } from '../../Utilities/auth';
+import Social from '../Shared/SocialLogin/Social';
 
 const SignUp = () => {
 
     const {createUser} = useContext(AuthContext);
-    const location = useLocation();
+/*     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
-
+ */
     const handleSignUp = event =>{
         event.preventDefault();
         const form = event.target;
@@ -22,7 +24,7 @@ const SignUp = () => {
         .then(result => {
             const user = result.user;
             console.log(user);
-            navigate(from, {replace: true} );
+            setAuthToken(user);
         })
         .then(err => console.error(err))
 
@@ -61,6 +63,7 @@ const SignUp = () => {
                         </div>
                     </form>
                     <p className='text-center'>Already have an account? Please <Link className='text-orange-600 font-bold' to='/login'>Login</Link> </p>
+                    <Social></Social>
                 </div>
             </div>
         </div>

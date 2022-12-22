@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/images/login/login.svg';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
+import Social from '../Shared/SocialLogin/Social';
+
+
 
 const Login = () => {
 
@@ -27,7 +30,7 @@ const Login = () => {
                 console.log(currentUser);
                 
                 //get jwt token
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://genius-car-server-red-one.vercel.app/jwt', {
                     method: 'POST',
                     headers:{
                         'content-type' : 'application/json'
@@ -55,28 +58,29 @@ const Login = () => {
                     <img className='w-3/4' src={login} alt="" />
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 py-20">
-                <h1 className="text-5xl text-center font-bold">Login</h1>
-                    <form onSubmit={handleLogin} className="card-body">
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input type="text" name='email' placeholder="email" className="input input-bordered" required/>
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-                            <input type="password" name='password' placeholder="password" className="input input-bordered" required/>
-                            <label className="label">
-                                <Link to=''  className="label-text-alt link link-hover">Forgot password?</Link>
-                            </label>
-                        </div>
-                        <div className="form-control mt-6">
-                            <input type="submit" className="btn btn-primary" value="Login" />
-                        </div>
-                    </form>
-                    <p className='text-center'>New to genius car? <Link className='text-orange-600 font-bold' to='/signup'>SignUp</Link> </p>
+                    <h1 className="text-5xl text-center font-bold">Login</h1>
+                        <form onSubmit={handleLogin} className="card-body">
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Email</span>
+                                </label>
+                                <input type="text" name='email' placeholder="email" className="input input-bordered" required/>
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Password</span>
+                                </label>
+                                <input type="password" name='password' placeholder="password" className="input input-bordered" required/>
+                                <label className="label">
+                                    <Link to=''  className="label-text-alt link link-hover">Forgot password?</Link>
+                                </label>
+                            </div>
+                            <div className="form-control mt-6">
+                                <input type="submit" className="btn btn-primary" value="Login" />
+                            </div>
+                        </form>
+                        <p className='text-center'>New to genius car? <Link className='text-orange-600 font-bold' to='/signup'>SignUp</Link> </p>
+                        <Social></Social>
                 </div>
             </div>
         </div>
