@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 
 const CheckOut = () => {
     const {_id, img, title , price} = useLoaderData();
     const {user} = useContext(AuthContext);
+    useTitle('Checkout');
     
     const handlePlaceOrder= event =>{
         event.preventDefault();

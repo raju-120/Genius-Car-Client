@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/images/login/login.svg';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 import Social from '../Shared/SocialLogin/Social';
+import useTitle from '../../hooks/useTitle';
 
 
 
@@ -11,6 +12,7 @@ const Login = () => {
     const {userLogin} = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
+    useTitle('Login');
 
     const from = location.state?.from?.pathname || '/';
 

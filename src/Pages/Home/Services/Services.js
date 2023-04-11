@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ServiceCard from './ServiceCard';
+import useTitle from '../../../hooks/useTitle';
 
 const Services = () => {
 
     const [services, setServices] = useState([]);
     const [isAsc, setISASsc] = useState(true);
     const [search, setSearch] = useState('');
+    useTitle('Home');
     const searchRef = useRef();
     useEffect( () =>{
-        fetch(`http://localhost:5000/services?search=${search}&order=${isAsc ? 'asc' : 'desc'}`)
+        fetch(`https://genius-car-server-red-one.vercel.app/services?search=${search}&order=${isAsc ? 'asc' : 'desc'}`)
         .then(res => res.json())
         .then(data => setServices(data))
     } , [isAsc, search])
