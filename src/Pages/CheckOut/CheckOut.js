@@ -4,7 +4,7 @@ import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 
 const CheckOut = () => {
-    const {_id, title , price} = useLoaderData();
+    const {_id, img, title , price} = useLoaderData();
     const {user} = useContext(AuthContext);
     
     const handlePlaceOrder= event =>{
@@ -13,7 +13,9 @@ const CheckOut = () => {
         const name = `${form.firstName.value} ${form.lastName.value}`;
         const phone = form.phone.value;
         const email = user?.email || "Unregistered";
-        const message = form.message.value;
+        const address = form.address.value;
+        //const currency =  form.currency.value;
+        //const postcode = form.postcode.value;
 
         const order = {
             service: _id,
@@ -22,7 +24,7 @@ const CheckOut = () => {
             customer: name,
             email, 
             phone,
-            message
+            address
         }
 
         /* if(phone.length > 11){
@@ -41,28 +43,87 @@ const CheckOut = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            if(data.acknowledge){
-                window.form.reset();
-                window.alert('Place your order successfully');
-            }
+             if(data.acknowledge){
+                alert('Place your order successfully');
+                form.reset();
+            } 
+            window.location.replace(data.url)
         })
         .catch(er => console.error(er));
     }
 
     return (
         <div>
-            <form onSubmit={handlePlaceOrder} className='mb-5'>
-                <h2 className="text-4xl text-center mb-5 text-orange-500">Your are about to order: {title}</h2>
-                <h4 className="text-3xl text-center p-2 text-gray-500">Price: ${price}</h4>
-                <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4'>
-                    <input name="firstName" type="text" placeholder="First Name" className="input input-bordered w-full" required/>
-                    <input name="lastName" type="text" placeholder="Last Name" className="input input-bordered w-full" required/>
-                    <input name="phone" type="text" placeholder="Your Phone" className="input input-bordered w-full" required/>
-                    <input name="email" type="text" placeholder="Your Email" defaultValue={user?.email} className="input input-bordered w-full" readOnly/>
+            <form onSubmit={handlePlaceOrder} className='mb-5 flex item-center justify-between'>
+                <div>
+                    <h2 className="text-4xl text-center mb-5 text-orange-500">Your are about to order: {title}</h2>
+                    <h4 className="text-3xl text-center p-2 text-gray-500">Price: ${price}</h4>
+                    <img src={img} alt="" />
                 </div>
-                <textarea name="message" className="textarea textarea-accent mb-5 w-full" style={{height: '200px'}} placeholder="Your Message" required></textarea>
 
-                <input className='btn' type="submit" value="Place Your Order" />
+                <div>
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4'>
+
+                        <input 
+                            name="firstName" 
+                            type="text" 
+                            placeholder="First Name" 
+                            className="input input-bordered w-full" 
+                            required
+                        />
+                        <input 
+                            name="lastName" 
+                            type="text" 
+                            placeholder="Last Name" 
+                            className="input input-bordered w-full" 
+                            required
+                        />
+                        <input 
+                            name="phone" 
+                            type="text" 
+                            placeholder="Your Phone" 
+                            className="input input-bordered w-full" 
+                            required
+                        />
+                        <input 
+                            name="email" 
+                            type="text" 
+                            placeholder="Your Email" 
+                            defaultValue={user?.email} 
+                            className="input input-bordered w-full" 
+                            readOnly
+                            />
+                       
+                       {/*  <select name='currency' className="select select-bordered  max-w-xs mb-2">
+                            <option defaultValue={'USD'} disabled selected>
+                                Currency
+                            </option>
+                            <option value={'BDT'}>BDT</option>
+                            <option value={'USD'}>USD</option>
+                        </select> */}
+
+                        {/* <input 
+                            name="postcode" 
+                            type="text" 
+                            placeholder="Your PostCode" 
+                            className="input input-bordered w-full" 
+                            
+                            /> */}
+                        </div>
+
+
+
+                        <textarea 
+                        name="address" 
+                        className="textarea textarea-accent mb-5 w-full" 
+                        style={{height: '200px'}} 
+                        placeholder="Your Message" 
+                        required
+                        >
+                        </textarea>
+
+                        <input className='btn w-full' type="submit" value="Pay" />
+                </div>
             </form>
         </div>
     );
